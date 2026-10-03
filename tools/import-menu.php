@@ -9,19 +9,22 @@ if (!defined('ABSPATH') || !function_exists('wp_insert_post')) {
 require_once dirname(__DIR__) . '/includes/menu.php';
 
 $cli_args = isset($args) && is_array($args) ? $args : [];
+$options = [];
 foreach ($cli_args as $arg) {
     if (is_string($arg) && str_starts_with($arg, '--')) {
         [$key, $value] = array_pad(explode('=', substr($arg, 2), 2), 2, '1');
-        $args[$key] = $value;
+        $options[$key] = $value;
     }
 }
 foreach ($_SERVER['argv'] ?? [] as $arg) {
     if (is_string($arg) && preg_match('/^--([a-z-]+)(?:=(.*))?$/', $arg, $match)) {
-        $args[$match[1]] = $match[2] ?? '1';
+        $options[$match[1]] = $match[2] ?? '1';
     }
 }
-$file = $args['file'] ?? (__DIR__ . '/menu-2026.json');
-$dry_run = array_key_exists('dry-run', $args);
+$file = $options['file'] ?? ($cli_args[0] ?? (__DIR__ . '/menu-2026.json'));
+$dry_run = array_key_exists('dry-run', $options)
+    || (($cli_args[1] ?? '') === 'dry-run')
+    || (($cli_args[1] ?? '') === '--dry-run');
 $raw = is_file($file) ? file_get_contents($file) : false;
 $snapshot = is_string($raw) ? json_decode($raw, true) : null;
 if (!is_array($snapshot) || !isset($snapshot['items']) || !is_array($snapshot['items'])) {

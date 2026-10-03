@@ -38,8 +38,8 @@ Renderer checks: `npm run check` and `npm test`. The suite covers atomic JSON vi
 
 ```sh
 cd ~/ohnisko.com/web
-wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php -- --file=wp-content/plugins/ohnisko-menu/tools/menu-2026.json --dry-run
-wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php -- --file=wp-content/plugins/ohnisko-menu/tools/menu-2026.json
+wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php wp-content/plugins/ohnisko-menu/tools/menu-2026.json dry-run
+wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php wp-content/plugins/ohnisko-menu/tools/menu-2026.json
 ```
 
-WP-CLI passes arguments after `--` to the evaluated file; the importer also accepts its adjacent snapshot by default. The dry run prints CREATE/UPDATE actions without writes. Re-running the real command updates the same posts by stable import ID.
+WP-CLI passes trailing positional arguments to the evaluated file in `$args`; the first is the snapshot path and optional second argument `dry-run` enables preview. The importer also accepts its adjacent snapshot by default. The dry run prints CREATE/UPDATE actions without writes. Re-running the real command updates the same posts by stable import ID.
