@@ -1,0 +1,56 @@
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-ext-400-normal.woff2') format('woff2');font-weight:400;font-display:block;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-600-normal.woff2') format('woff2');font-weight:600;font-display:block}
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-ext-600-normal.woff2') format('woff2');font-weight:600;font-display:block;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-700-normal.woff2') format('woff2');font-weight:700;font-display:block}
+@font-face{font-family:Montserrat;src:url('fonts/montserrat-latin-ext-700-normal.woff2') format('woff2');font-weight:700;font-display:block;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:'Bebas Neue';src:url('fonts/bebas-neue-latin-400-normal.woff2') format('woff2');font-weight:400;font-display:block}
+@font-face{font-family:'Bebas Neue';src:url('fonts/bebas-neue-latin-ext-400-normal.woff2') format('woff2');font-weight:400;font-display:block;unicode-range:U+0100-024F,U+1E00-1EFF}
+:root{--fire-yellow:#DEB76C;--forest-green:#396360;--ink:#202523;--paper:#fbfaf7}
+@page{size:A4;margin:9mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;color:var(--ink);font-family:Montserrat,Arial,sans-serif;font-size:7.2pt;line-height:1.28;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background-color:var(--paper);background-image:linear-gradient(rgba(251,250,247,.90),rgba(251,250,247,.90)),url('brand-pattern.png');background-repeat:repeat;background-size:auto,18mm 18mm}
+.menu-document{width:100%;min-height:100%;padding:3mm;background:rgba(251,250,247,.94)}
+.menu-intro,.menu-section,.menu-josper,.menu-static{margin:0 0 4mm;padding:2.2mm;border:.35mm solid var(--forest-green);border-radius:2.4mm;background:rgba(255,255,255,.91);break-inside:auto}
+.menu-intro{text-align:center;padding:4mm 8mm;background:var(--forest-green);color:#fff;border:1mm solid var(--fire-yellow);border-radius:0 0 7mm 7mm}
+.menu-brand{display:block;width:48mm;height:auto;margin:0 auto 2mm}
+.menu-subbrand{margin:1mm 0 2mm;font:400 12pt/1 'Bebas Neue',sans-serif;letter-spacing:.19em}
+.menu-intro h1{margin:1mm 0;font:400 16pt/1.05 'Bebas Neue',sans-serif;color:var(--fire-yellow)}
+.menu-intro p:last-child{margin:0;font-size:7.2pt}
+h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.035em}
+.menu-intro h1,.menu-section h2,.menu-josper>h2,.menu-static h2{margin:0 0 1.2mm;font-size:13pt;line-height:1.08;text-align:center;color:var(--forest-green)}
+.menu-section__header{margin:-2.2mm -2.2mm 1.6mm;padding:1.2mm 1.5mm;border-bottom:.25mm solid var(--fire-yellow);text-align:center;break-after:avoid}
+.menu-section__subtitle,.menu-section__intro{margin:0 0 1mm;font-size:6.3pt}
+.menu-section__shared-price{margin:1mm 0 0;font-weight:700;color:var(--forest-green)}
+.menu-items{display:grid;grid-template-columns:minmax(0,1fr);gap:2mm 3mm}
+.menu-items--columns{display:block;columns:2;column-gap:3mm}
+.menu-items--columns>.menu-item{display:inline-block;width:100%}
+.menu-item{position:relative;min-width:0;padding:0 0 1.2mm;border-bottom:.15mm dotted rgba(57,99,96,.5);break-inside:avoid}
+.menu-item__header{display:flex;align-items:baseline;justify-content:space-between;gap:2mm}
+.menu-item__name{margin:0;font:600 8pt/1.1 Montserrat,sans-serif}
+.menu-item__price{flex:none;font-weight:700;white-space:nowrap;color:var(--forest-green)}
+.menu-item__meta,.menu-item__note,.menu-item__description,.menu-item__details{margin:.35mm 0 0}
+.menu-item__meta,.menu-item__note{font-size:6.4pt}
+.menu-item__note{font-style:italic;color:var(--forest-green)}
+.menu-item__details{white-space:pre-line}
+.menu-item__badge,.menu-item__spiciness{display:inline-block;margin:.35mm 1mm 0 0;font-size:6pt;font-weight:700;color:var(--forest-green)}
+.menu-item__badge{border:.2mm solid var(--fire-yellow);padding:0 .8mm;border-radius:2mm}
+.menu-item__spiciness{color:var(--fire-yellow);font-size:8pt;letter-spacing:.04em}
+.menu-item__spiciness img{width:3mm;height:4mm;vertical-align:-.7mm;margin-right:.3mm}
+.menu-josper>h2{font-size:17pt}
+.menu-josper__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm}
+.menu-josper__grid>.menu-section{margin:0;padding:2mm;border-radius:1mm}
+.menu-josper__grid .menu-section__header{margin:-2mm -2mm 1.3mm;padding:1mm}
+.menu-section--josper_sauces .menu-items{grid-template-columns:1fr}
+.menu-order-only{text-align:center;border:1mm double var(--fire-yellow);background:rgba(222,183,108,.15)}
+.menu-order-only h2{margin-bottom:1mm}
+.menu-footer__chef{margin:2mm 0;text-align:center;font:400 11pt 'Bebas Neue',sans-serif;color:var(--forest-green)}
+.menu-footer{break-inside:auto}
+.menu-dog-menu{border-color:var(--fire-yellow)}
+.menu-allergens,.menu-review{margin:2mm 0;padding:2mm;border-top:.4mm solid var(--forest-green);font-size:5.5pt}
+.menu-allergens h2{margin:0 0 1mm;font-size:9pt;color:var(--forest-green)}
+.menu-allergens p,.menu-review p{margin:0 0 1mm}
+.menu-review{display:flex;justify-content:space-between;gap:5mm;align-items:center;font:400 8pt 'Bebas Neue',sans-serif;letter-spacing:.04em;color:var(--forest-green)}
+.menu-review p:first-child{max-width:62%}
+@media screen{body{padding:12mm;background-color:#efebe2}.menu-document{max-width:190mm;margin:auto;box-shadow:0 1mm 8mm #0002}}
