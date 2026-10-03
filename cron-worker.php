@@ -11,7 +11,8 @@ if (PHP_SAPI !== 'cli') {
     exit("CLI only\n");
 }
 
-$runtime = dirname(__DIR__, 5) . '/ohnisko-pdf-runtime';
+require_once __DIR__ . '/includes/runtime.php';
+$runtime = ohnisko_menu_runtime_dir();
 
 $node   = $runtime . '/bin/node';
 $worker = $runtime . '/worker.mjs';

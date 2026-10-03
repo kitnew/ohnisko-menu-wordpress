@@ -44,6 +44,7 @@ h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.035em}
 .menu-josper__grid .menu-section__header{margin:-2mm -2mm 1.3mm;padding:1mm}
 .menu-section--josper_sauces .menu-items{grid-template-columns:1fr}
 .menu-order-only{text-align:center;border:1mm double var(--fire-yellow);background:rgba(222,183,108,.15)}
+.menu-order-only{break-inside:avoid;page-break-inside:avoid}
 .menu-order-only h2{margin-bottom:1mm}
 .menu-footer__chef{margin:2mm 0;text-align:center;font:400 11pt 'Bebas Neue',sans-serif;color:var(--forest-green)}
 .menu-footer{break-inside:auto}

@@ -7,14 +7,14 @@ if (!defined('ABSPATH')) {
 add_action('init', function () {
     register_post_type('ohnisko_menu_item', [
         'labels' => [
-            'name'          => 'Menu',
+            'name'          => 'Menu items',
             'singular_name' => 'Menu Item',
             'add_new_item'  => 'Add Menu Item',
             'edit_item'     => 'Edit Menu Item',
             'new_item'      => 'New Menu Item',
             'search_items'  => 'Search Menu',
             'not_found'     => 'No menu items found',
-            'menu_name'     => 'Menu',
+            'menu_name'     => 'Menu items',
         ],
         'public'             => false,
         'show_ui'            => true,
@@ -28,17 +28,4 @@ add_action('init', function () {
         'publicly_queryable' => false,
     ]);
 
-    register_taxonomy('ohnisko_menu_section', ['ohnisko_menu_item'], [
-        'labels' => [
-            'name'          => 'Menu Sections',
-            'singular_name' => 'Menu Section',
-            'menu_name'     => 'Sections',
-        ],
-        'public'            => false,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'show_in_rest'      => false,
-        'hierarchical'      => true,
-        'rewrite'           => false,
-    ]);
 });

@@ -12,8 +12,11 @@ add_action('template_redirect', function () {
         $job = preg_match('/^[a-f0-9]{32}$/', $id) && is_file($job_file)
             ? json_decode((string) file_get_contents($job_file), true)
             : null;
-        $pdf = is_array($job) && ($job['status'] ?? '') === 'ready'
-            ? ohnisko_menu_runtime_dir() . '/generated/' . basename((string) ($job['filename'] ?? ''))
+        $filename = is_array($job) ? basename((string) ($job['filename'] ?? '')) : '';
+        $pdf = is_array($job)
+            && ($job['status'] ?? '') === 'ready'
+            && preg_match('/^[A-Za-z0-9._-]+\.pdf$/i', $filename)
+            ? ohnisko_menu_runtime_dir() . '/generated/' . $filename
             : '';
         if ($pdf === '' || !is_file($pdf)) {
             status_header(404);
@@ -32,7 +35,7 @@ add_action('template_redirect', function () {
         return;
     }
 
-    $expected_token = (string) get_option('ohnisko_menu_print_token', '');
+    $expected_token = ohnisko_menu_print_token();
     $provided_token = isset($_GET['token'])
         ? sanitize_text_field(wp_unslash($_GET['token']))
         : '';
@@ -76,25 +79,39 @@ add_action('template_redirect', function () {
                 <p><?php echo nl2br(esc_html($static['intro']['text'])); ?></p>
             </header>
 
-            <?php foreach (['wine_beer_snacks', 'small_dishes'] as $section_key) : ?>
-                <?php echo ohnisko_menu_render_section($section_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php $sections = ohnisko_menu_sections(); ?>
+            <?php foreach ($sections as $section_key => $section) : ?>
+                <?php if (($section['layout_group'] ?? '') === 'top') : ?>
+                    <?php echo ohnisko_menu_render_section($section_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <?php endif; ?>
             <?php endforeach; ?>
 
+            <?php
+            $josper_sections = [];
+            foreach ($sections as $section_key => $section) {
+                if (($section['layout_group'] ?? '') === 'josper') {
+                    $rendered = ohnisko_menu_render_section($section_key);
+                    if ($rendered !== '') $josper_sections[] = $rendered;
+                }
+            }
+            ?>
+            <?php if ($josper_sections !== []) : ?>
             <section class="menu-josper">
                 <h2>JOSPER GRILL COMBO</h2>
                 <p class="menu-section__subtitle">
                     Jedna príloha a jedno maslo/omáčka sú zdarma pri objednaní mäsa z tejto kategórie.
                 </p>
                 <div class="menu-josper__grid">
-                    <?php foreach (['josper_beef', 'josper_rest', 'josper_sides', 'josper_sauces'] as $section_key) : ?>
-                        <?php echo ohnisko_menu_render_section($section_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                    <?php foreach ($josper_sections as $rendered) : ?>
+                        <?php echo $rendered; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <?php endforeach; ?>
                 </div>
             </section>
+            <?php endif; ?>
 
-            <?php echo ohnisko_menu_render_section('bbq'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo ohnisko_menu_render_section('sandwich'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-
+            <?php foreach ($sections as $section_key => $section) : ?>
+                <?php if (($section['layout_group'] ?? '') !== 'flow') continue; ?>
+                <?php if (($section['static_before'] ?? '') === 'order_only') : ?>
             <?php $order_only = $static['order_only']; ?>
             <section class="menu-static menu-order-only">
                 <h2><?php echo esc_html($order_only['title']); ?></h2>
@@ -102,8 +119,9 @@ add_action('template_redirect', function () {
                 <p><?php echo esc_html(implode(' · ', $order_only['items'])); ?></p>
                 <p><?php echo esc_html($order_only['text']); ?></p>
             </section>
-
-            <?php echo ohnisko_menu_render_section('desserts_cheese'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <?php endif; ?>
+                <?php echo ohnisko_menu_render_section($section_key); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php endforeach; ?>
 
             <footer class="menu-footer">
                 <p class="menu-footer__chef">

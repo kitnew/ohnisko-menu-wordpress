@@ -249,6 +249,9 @@ function ohnisko_menu_render_section(
     $section = $sections[$section_key];
 
     $items = ohnisko_menu_get_section_items($section_key);
+    if ($items === []) {
+        return '';
+    }
 
     return ohnisko_menu_render_template(
         'menu-section',

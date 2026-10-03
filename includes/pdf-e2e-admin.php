@@ -4,12 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function ohnisko_menu_runtime_dir(): string
-{
-    $home = getenv('HOME');
-    return $home ? rtrim($home, '/') . '/ohnisko-pdf-runtime' : dirname(OHNISKO_MENU_DIR, 5) . '/ohnisko-pdf-runtime';
-}
-
 function ohnisko_menu_read_jobs(): array
 {
     $files = glob(ohnisko_menu_runtime_dir() . '/jobs/*.json') ?: [];

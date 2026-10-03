@@ -62,11 +62,13 @@ function ohnisko_menu_sections(): array
         'wine_beer_snacks' => [
             'title' => 'WINE & BEER SNACKS',
             'item_variant' => 'standard',
+            'layout_group' => 'top',
         ],
 
         'small_dishes' => [
             'title' => 'MALÉ JEDLÁ',
             'item_variant' => 'standard',
+            'layout_group' => 'top',
 
             'subtitle' =>
                 'Sharing is caring. Vyskladajte si do stredu stola vlastné degustačné menu.',
@@ -75,6 +77,7 @@ function ohnisko_menu_sections(): array
         'josper_beef' => [
             'title' => 'HOVÄDZIE STEAKY',
             'item_variant' => 'standard',
+            'layout_group' => 'josper',
 
             'intro' =>
                 'Steaky dochucujeme kampotským korením, maldon soľou '
@@ -84,16 +87,19 @@ function ohnisko_menu_sections(): array
         'josper_rest' => [
             'title' => 'BEST OF THE REST',
             'item_variant' => 'standard',
+            'layout_group' => 'josper',
         ],
 
         'josper_sides' => [
             'title' => 'PRÍLOHY JOSPER GRILL',
             'item_variant' => 'standard',
+            'layout_group' => 'josper',
         ],
 
         'josper_sauces' => [
             'title' => 'OMÁČKY JOSPER GRILL',
             'item_variant' => 'compact',
+            'layout_group' => 'josper',
 
             'shared_price' => '40g / 3.00€',
         ],
@@ -101,6 +107,7 @@ function ohnisko_menu_sections(): array
         'bbq' => [
             'title' => 'BBQ Z NAŠEJ UDIARNE',
             'item_variant' => 'standard',
+            'layout_group' => 'flow',
 
             'intro' =>
                 'BBQ podávame s pampuškami s cesnakom a kôprom, coleslawom, '
@@ -114,6 +121,7 @@ function ohnisko_menu_sections(): array
         'sandwich' => [
             'title' => 'SANDWICH',
             'item_variant' => 'standard',
+            'layout_group' => 'flow',
 
             'subtitle' =>
                 'S našim domácim brioškovým sendvičovým chlebom.',
@@ -122,6 +130,8 @@ function ohnisko_menu_sections(): array
         'desserts_cheese' => [
             'title' => 'SLADKÉ & SYR',
             'item_variant' => 'standard',
+            'layout_group' => 'flow',
+            'static_before' => 'order_only',
         ],
     ];
 }
