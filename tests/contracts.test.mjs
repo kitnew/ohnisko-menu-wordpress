@@ -53,17 +53,20 @@ test('runtime path and print token have shared private runtime sources', async (
 test('one-shot menu snapshot uses only defined sections and supported item fields', async () => {
   const snapshot = JSON.parse(await source('tools/menu-2026.json'));
   const menu = await source('includes/menu.php');
+  const importer = await source('tools/import-menu.php');
   const sectionsBlock = menu.split('function ohnisko_menu_sections(): array')[1].split('function ohnisko_menu_section_choices(): array')[0];
   const sections = [...sectionsBlock.matchAll(/^        '([a-z_]+)' => \[$/gm)].map(match => match[1]);
   const ids = snapshot.items.map(item => item.import_id);
   const allowedFields = new Set([
-    'import_id', 'title', 'section', 'sort_order', 'description', 'note', 'details',
+    'import_id', 'title', 'section', 'menu_section', 'sort_order', 'description', 'note', 'details',
     'portion', 'origin', 'allergens', 'badge', 'spiciness', 'price_type',
     'price_amount', 'price_unit', 'price_custom', 'meta_order', 'active',
   ]);
   const counts = Object.fromEntries(sections.map(section => [section, snapshot.items.filter(item => item.section === section).length]));
 
   assert.equal(snapshot.items.length, 51);
+  assert.match(importer, /array_merge\(\['import_id', 'title', 'section'\]/);
+  assert.match(importer, /'menu_section'=>\$item\['section'\]/);
   assert.equal(new Set(ids).size, ids.length);
   assert.deepEqual(counts, {
     wine_beer_snacks: 5, small_dishes: 11, josper_beef: 4, josper_rest: 5,

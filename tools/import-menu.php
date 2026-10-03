@@ -43,7 +43,7 @@ $field_keys = [
     'price_amount'=>'field_ohnisko_price_amount', 'price_unit'=>'field_ohnisko_price_unit',
     'price_custom'=>'field_ohnisko_price_custom', 'meta_order'=>'field_ohnisko_meta_order', 'active'=>'field_ohnisko_active',
 ];
-$allowed = array_merge(['import_id', 'title'], array_keys($field_keys));
+$allowed = array_merge(['import_id', 'title', 'section'], array_keys($field_keys));
 $errors = [];
 $seen_ids = $seen_order = [];
 foreach ($snapshot['items'] as $index => $item) {
