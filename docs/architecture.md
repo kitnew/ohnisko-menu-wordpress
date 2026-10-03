@@ -31,3 +31,15 @@ In WordPress, each ready version has Preview, Download, and Publish actions. Pub
 ## Local verification
 
 Renderer checks: `npm run check` and `npm test`. The suite covers atomic JSON visibility, allowed job transitions, explicit Paged.js readiness, and short/long fixture pagination with a long fixture exceeding four pages. WordPress contract checks are in `tests/contracts.test.mjs`. PHP lint and live WordPress/CRON endpoint checks require PHP and a WordPress deployment environment.
+
+## One-shot menu import
+
+`tools/menu-2026.json` is a versioned import snapshot sourced from `Jedalny-2026-SVK-NOVY2.pdf`; WordPress remains the only runtime source of menu data. The importer validates all records before writing, matches posts by `_ohnisko_import_id`, updates existing matches, and never removes/deactivates unrelated posts. Back up the database and run the preview first from the deployed site root:
+
+```sh
+cd ~/ohnisko.com/web
+wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php -- --file=wp-content/plugins/ohnisko-menu/tools/menu-2026.json --dry-run
+wp eval-file wp-content/plugins/ohnisko-menu/tools/import-menu.php -- --file=wp-content/plugins/ohnisko-menu/tools/menu-2026.json
+```
+
+WP-CLI passes arguments after `--` to the evaluated file; the importer also accepts its adjacent snapshot by default. The dry run prints CREATE/UPDATE actions without writes. Re-running the real command updates the same posts by stable import ID.
