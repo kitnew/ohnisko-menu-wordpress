@@ -18,4 +18,5 @@ require_once OHNISKO_MENU_DIR . 'includes/content-types.php';
 require_once OHNISKO_MENU_DIR . 'includes/acf-fields.php';
 require_once OHNISKO_MENU_DIR . 'includes/menu.php';
 require_once OHNISKO_MENU_DIR . 'includes/print-endpoint.php';
+require_once OHNISKO_MENU_DIR . 'includes/elementor-test-endpoint.php';
 require_once OHNISKO_MENU_DIR . 'includes/pdf-e2e-admin.php';
